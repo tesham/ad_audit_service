@@ -6,7 +6,7 @@ from django.apps import AppConfig
 #     name = 'audit'
 
 
-class MessagingConfig(AppConfig):
+class AuditConfig(AppConfig):
     name = 'audit'
 
     def ready(self):

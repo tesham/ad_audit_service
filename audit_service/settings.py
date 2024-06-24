@@ -21,6 +21,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-@feu27!cj1f$*agq+(taci(bigo4aid(%5z^an&4zig7g=oxsw'
+JWT_SECRET_KEY = os.getenv('JWT_SECRET_KEY') if 'JWT_SECRET_KEY' in os.environ else 'n8QgAmK5j3ZxWt6qjPYd_YwN7ap_1gMD1sCZ_ZxHrD1'
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -110,6 +112,18 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# Auth Token
+REST_FRAMEWORK = {
+    'DEFAULT_RENDERER_CLASSES': (
+        'rest_framework.renderers.JSONRenderer',
+    ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'audit.authentication.SafeJWTAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ]
+}
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/

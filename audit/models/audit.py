@@ -6,7 +6,7 @@ class Audit(models.Model):
     session_id = models.IntegerField(null=True)
     module = models.CharField(max_length=100)
     label = models.CharField(max_length=100)
-    ip = models.CharField(max_length=100)
+    ip = models.CharField(max_length=100, null=True, blank=True)
     action = models.TextField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
