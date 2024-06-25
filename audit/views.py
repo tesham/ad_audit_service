@@ -30,7 +30,7 @@ class AuditApiView(AuthenticatedView):
                 user=user, ip=ip, label=label, start_date=start_date, end_date=end_date, module=module
             )
 
-            data = queryset.values()
+            data = queryset.order_by('-created_at').values()
 
             return Response(
                 data, status=status.HTTP_200_OK
