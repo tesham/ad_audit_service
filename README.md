@@ -48,16 +48,19 @@ ip and auth service and store it to database. It also has an API to fetch audit 
 ```
     python manage.py makemigrations audit
     python manage.py migrate audit
-    
-    model structure:
-    class Audit(models.Model):
-        user = models.CharField(max_length=100) # user who perform operation
-        session_id = models.IntegerField(null=True) # user session id
-        module = models.CharField(max_length=100) # audit module AUTH/IP
-        label = models.CharField(max_length=100) # if AUTH label can be : Login/logout
-        ip = models.CharField(max_length=100, null=True, blank=True) # ip address
-        action = models.TextField(null=True, blank=True) # action taken
-        created_at = models.DateTimeField(auto_now_add=True) # action perform date
+
+    -- Table Definition
+    CREATE TABLE "public"."audits" (
+        "id" int8 NOT NULL,
+        "user" varchar NOT NULL, # user who performed action
+        "session_id" int4, # user session id
+        "module" varchar NOT NULL, # action category(AUTH/IP)
+        "label" varchar NOT NULL, # action type (for AUTH: Login/Logout, for IP : Create/Update)
+        "ip" varchar, # ip address on which action performed 
+        "action" text, # action description
+        "created_at" timestamptz NOT NULL,
+        PRIMARY KEY ("id")
+    );
 ```
 
 6. Put RabbitMQ config in setting.py

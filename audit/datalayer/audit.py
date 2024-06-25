@@ -4,7 +4,7 @@ from audit.models import Audit
 class AuditDatalayer(object):
 
     @classmethod
-    def filter_audit(cls, user=None, ip=None, module=None, label=None, start_date=None, end_date=None):
+    def filter_audit(cls, user=None, ip=None, module=None, label=None, start_date=None, end_date=None, session=None):
 
         queryset = Audit.objects.all()
 
@@ -22,5 +22,8 @@ class AuditDatalayer(object):
 
         if start_date and end_date:
             queryset = queryset.filter(created_at__date__range=[start_date, end_date])
+
+        if session:
+            queryset = queryset.filter(session_id=session)
 
         return queryset

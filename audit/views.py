@@ -37,12 +37,14 @@ class AuditApiView(AuthenticatedView):
         try:
             user = request.query_params.get('user', None)
             ip = request.query_params.get('ip', None)
+            session = request.query_params.get('session', None)
             module = request.query_params.get('module', None)
             label = request.query_params.get('label', None)
             start_date = request.query_params.get('start_date', None)
             end_date = request.query_params.get('end_date', None)
             queryset = AuditDatalayer.filter_audit(
-                user=user, ip=ip, label=label, start_date=start_date, end_date=end_date, module=module
+                user=user, ip=ip, label=label, start_date=start_date, end_date=end_date, module=module,
+                session=session
             )
 
             data = queryset.order_by('-created_at').values()
