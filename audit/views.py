@@ -7,15 +7,30 @@ from rest_framework.response import Response
 
 from audit.datalayer import AuditDatalayer
 
-
+'''
+   User can't access this class api without auth token
+'''
 class AuthenticatedView(APIView):
     pass
 
 
+'''
+   User can access this class api without auth token
+'''
 class UnauthenticatedView(APIView):
     permission_classes = ()
 
 
+
+'''
+ filters can be passed in request url to see users data
+ for example : 
+  url can be : http://127.0.0.1:8000/api/audit?ip=123.45.2.1&module='AUTH'
+  :param ip : to filter IP address related log
+  :param user : to filter user all audit log
+  :param module : to filter AUTH/IP module audit log
+  :param start_date , end_date : filter all audit log between dates
+'''
 class AuditApiView(AuthenticatedView):
 
     def get(self, request):
